@@ -2,11 +2,15 @@
   "name": "ttcp",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "node-ttcp": "./index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "scripts": { },
+  "keywords": ["net", "socket", "ttcp"],
+  "engines" : { "node" : ">=4.6.0" },
+  "author": "skyitachi <skbysp@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0"
+  }
 }
