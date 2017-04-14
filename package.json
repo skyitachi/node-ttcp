@@ -1,13 +1,19 @@
 {
   "name": "node-ttcp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "bin": {
     "node-ttcp": "./index.js"
   },
-  "scripts": { },
-  "keywords": ["net", "socket", "ttcp"],
-  "engines" : { "node" : ">=4.6.0" },
+  "scripts": {},
+  "keywords": [
+    "net",
+    "socket",
+    "ttcp"
+  ],
+  "engines": {
+    "node": ">=4.6.0"
+  },
   "author": "skyitachi <skbysp@gmail.com>",
   "repository": {
     "type": "git",
