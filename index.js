@@ -38,6 +38,7 @@ function respond(socket) {
   let iteration = 0;
   let totalPayload = 0;
   let start = Date.now();
+  let ackBuf = Buffer.from(new ArrayBuffer(4));
   socket.on("data", function (buf) {
     if (!gotSessionMsg) {
       if (buf.buffer.byteLength >= 8) {
@@ -54,16 +55,16 @@ function respond(socket) {
     if (payLoad >= totalPayload) {
       payLoad -= totalPayload;
       iteration += 1;
-      buf = Buffer.from(new ArrayBuffer(4));
-      buf.writeInt32BE(sessionMsg.length, 0);
-      socket.write(buf);
+      ackBuf.writeInt32BE(sessionMsg.length, 0);
+      // wirte ack
+      socket.write(ackBuf);
       if (iteration === sessionMsg.number) {
         const received = 8 + sessionMsg.number * (sessionMsg.length + 4);
         const elapsed = (Date.now() - start) / 1000;
-        const size = Math.floor(received / 1024 / 1024);
+        const size = (received / 1024 / 1024).toFixed(2);
         console.log(`received size: ${size}MB`);
-        console.log(`rate is ${(size / elapsed).toFixed(3)} MB/s`);
-        server.close();
+        console.log(`rate is ${(size / elapsed).toFixed(2)} MB/s`);
+        socket.end();
       }
     }
   });
@@ -89,17 +90,9 @@ function transmit(socket) {
     const l = buf.readInt32BE(0);
     assert(l === length, "client did not receive right ack");
     if (remain) {
-      buffer = Buffer.allocUnsafe(length + 4);
-      buffer.fill(0);
-      buffer.writeInt32BE(length, 0);
       socket.write(buffer);
       remain -= 1;
     } else {
-      const received = 8 + number * (length + 4);
-      const elapsed = (Date.now() - start) / 1000;
-      const size = Math.floor(received / 1024 / 1024);
-      console.log(`send size: ${size}MB`);
-      console.log(`rate is ${(size / elapsed).toFixed(3)} MB/s`);
       socket.end();
     }
   });
