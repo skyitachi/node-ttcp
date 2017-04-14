@@ -9,6 +9,10 @@
   "keywords": ["net", "socket", "ttcp"],
   "engines" : { "node" : ">=4.6.0" },
   "author": "skyitachi <skbysp@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skyitachi/node-ttcp.git"
+  },
   "license": "ISC",
   "dependencies": {
     "commander": "^2.9.0"
