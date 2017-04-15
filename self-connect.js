@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
+// why cannot simulate self_connection?
 const net = require("net");
 
-let count = 1000;
+let count = 65536;
 
 function sleep(seconds) {
     const st = Date.now();
@@ -23,7 +24,7 @@ if (process.argv.length < 3) {
   console.log("Usage: %s port", process.argv[1]);
 } else {
   const socket = new net.Socket();
-  socket.setMaxListeners(1024);
+  socket.setMaxListeners(count);
   socket.on("error", function () {
     count -= 1;
     self_connect(socket, process.argv[2]);
