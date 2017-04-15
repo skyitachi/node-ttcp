@@ -13,6 +13,7 @@ function sleep(seconds) {
 function self_connect(socket, port) {
   if (count > 0) {
     socket.connect({
+      host: "localhost",
       port: port
     }, function () {
       console.log("Connected: ", socket.address, socket.remoteAddress)
